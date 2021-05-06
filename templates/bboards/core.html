@@ -1,0 +1,39 @@
+{% comment %} 
+    Базовый для всех шаблонов 
+ {% endcomment %}
+<!DOCTYPE html>
+<html> 
+    {% autoescape on %}
+    {% spaceless %} 
+    <head>        
+        
+        {% load static %}
+        {% block meta_base %}            
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">                        
+            <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">       
+        {% endblock meta_base %}
+
+        {% block meta %}                        
+        {% endblock meta %}    
+        {% block styles %}        
+        {% endblock styles %}                
+        <!-- {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.6.3/rxjs.umd.js" integrity="sha512-Pca6Cn5CDh0NawlgV72T8bBDWCx6WjXzonw6AYigdJrgovaD1GkhTfpT9KDHbcNbN/6qWVsJqdkQwA7kaNdYeg==" crossorigin="anonymous"></script> {% endcomment %} -->
+        <!-- {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.6.3/rxjs.umd.min.js" integrity="sha512-JnZPWAckMDks0CCIeGznqEo7ifmYK7VowHq/NVFlSXGkwxv4OBCJFy7nouOtJZmVldHo7FQLIdeWTI55yyZc4Q==" crossorigin="anonymous"></script>         {% endcomment %} -->
+    </head>
+    <body>            
+        {% block navbar %}                                   
+        {% endblock navbar %}  
+        
+        {% comment %} {% block breadcrumbs %}                                   
+        {% endblock breadcrumbs %}   {% endcomment %}
+
+        {% block body %}                                   
+        {% endblock body %}
+
+        {% block scripts %}                                        
+        {% endblock scripts %}            
+    </body>
+    {% endspaceless %}
+    {% endautoescape %}    
+</html>

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+ 
+#cover {
+    background-image: linear-gradient(rgb(99, 182, 157), #c7b39b);
+    background-size: cover;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#cover-caption {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+/* only used for background overlay not needed for centering */
+form:before {
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0,0,0,0.3);
+    z-index: -1;
+    border-radius: 10px;
+
+}
+.btn-primery {
+    color:aliceblue;
+}
+
+</style>
+<section id="cover" class="min-vh-100">
+    <div id="cover-caption">
+        <div class="container">
+            <div class="row text-white">
+                <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+                    <h2 class="display-4 py-1 text-truncate">ВХОД В СИСТЕМУ</h2>
+                    <div class="px-2">
+                        <form action="" class="justify-content-center"  method="post">
+                            {% csrf_token %}  
+                            <div class="form-group">
+                                <label class="sr-only" for="username_id"></label>
+                                <input type="text" class="form-control" name="username" required id="id_" / placeholder="Иван Иванов"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="password"></label>
+                                <input class="form-control" type="password" name="password" required id="id_password" placeholder="ivan89@example.com"/>
+                            </div>
+                            <div class="form-group"></div>
+                            <input type="hidden" name="next" value="{{ request.GET.next }}">
+                            <button class="btn btn-primery btn-lg " type="submit" value="войти">Войти</button>                                        
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+

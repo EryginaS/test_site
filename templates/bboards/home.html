@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<link href="{% static 'css/style.css' %}" rel="stylesheet" >                
+
+<section id="cover" class="min-vh-100">
+    <div id="cover-caption">
+        <div class="container">
+            {% if user.is_authenticated %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">О заявке</h5>
+                    <p class="card-text">Оставьте заявку, если вам нужно исправить проблему с оборудованием, сетью или
+                        ПО. </p>
+                    <a class="nav-link" href="{% url 'bboard:send_form' %}">Оставить заявку</a>
+                </div>
+            </div>
+            {% else %}
+
+            <div class="row text-white">
+                ВОЙДИТЕ В СИСТЕМУ
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<!-- Modal -->
+<div class="form-popup" id="myForm">
+    <form action="send-form/" method="POST" class="form-container">
+        {% csrf_token %}  
+        <h1>Новая заявка</h1>
+        <label><b>Тема заявки</b></label>
+        <input type="text" placeholder="введите тему заявки" name="aplicate" required>
+
+        <textarea id="story" name="story" rows="5" cols="33" placeholder="Описание проблемы."></textarea>
+
+        <label for="priority"><b>Приоритет</b></label>
+        <select class="dropdown__form"id="priority" name="priority">
+            <option value="0">Низкий</option>
+            <option value="1">Средний</option>
+            <option value="2">Высокий</option>
+        </select>
+        <label for="type_app"><b>Тип </b></label>
+        <select  class="dropdown__form" id="type_app" name="type_app">
+            <option value="0">Обслуживание</option>
+            <option value="1">Консультация</option>
+        </select>
+
+        <button type="submit" class="btn">Отправить заявку</button>
+        <button type="submit" class="btn cancel" onclick="closeForm()">Закрыть форму</button>
+    </form>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
+
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+    $(document).ready(function () {
+        $("#applicate").click(function () {
+            openForm();
+        });
+    });
+    $("#idForm > form").submit(function(e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        let form = $(this);
+        let url = form.attr('action');
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.find('input, select, textarea, button').serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+                alert(data); // show response from the php script.
+            }
+            });
+
+
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+{% autoescape off %}
+Здравствуйте, вам заявка от {{ user.username }}.
+<b>Тема заявки: </b>{{theme}}.
+<b>Описание: </b>{{story}}.
+<b>Приоритет: </b>{{priority}}.
+<b>Тип обслуживания: </b>{{type_app}}.
+
+{% endautoescape %}
