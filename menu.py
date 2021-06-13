@@ -35,7 +35,9 @@ class CustomMenu(Menu):
             items.ModelList(
                 'Пользователи и группы', ['django.contrib.auth.*',]
             ), 
-            items.MenuItem(('Отчеты'), reverse('bboard:login'))
+            items.ModelList(
+                'Отчеты', ['bboard.models.Report']
+            ), 
         ]
 
     def init_with_context(self, context):
