@@ -88,3 +88,42 @@ class Applications(models.Model):
         return 'Заявка: %s' % str(self.pk)
 
 
+class Report(models.Model):
+    application = models.ForeignKey(Applications, on_delete=models.PROTECT, blank=True, null=True, verbose_name='Заявка', unique=True)
+    theme = models.CharField(max_length=50, verbose_name='Тема заявки', blank=True, null=True,)
+    desc = models.TextField(null=True, blank=True, verbose_name='Описание')
+    client = models.ForeignKey(Clients, on_delete=models.PROTECT, blank=True, null=True, verbose_name='Клиент')
+    date = models.DateTimeField(verbose_name='Плановая дата решения', blank=True, null=True,)
+    responsible = models.ForeignKey(ItPerson, on_delete=models.PROTECT, blank=True, null=True, verbose_name='Ответсвтенный сотрудник')
+    TYPE_CHOICES_FOR_PRIORITY = (
+        (0, "Низкий"), 
+        (1, "Средний"), 
+        (2, "Высокий"), 
+    
+    )
+    priority = models.IntegerField(verbose_name='Приоритет', null=True, choices=TYPE_CHOICES_FOR_PRIORITY) 
+    TYPE_CHOICES_FOR_STATUS = (
+        (0, "Непрочитанный"), 
+        (1, "К исполнению"), 
+        (2, "Выполненный"), 
+    
+    )
+    TYPE_CHOICES_FOR_TYPE = (
+        (0, "Обслуживание"), 
+        (1, "Консультация"), 
+    
+    )
+    status= models.IntegerField(verbose_name='Статус заявки', null=True, choices=TYPE_CHOICES_FOR_STATUS, default=0)
+    type_app= models.IntegerField(verbose_name='Тип заявки', null=True, choices=TYPE_CHOICES_FOR_TYPE, default=0)
+    done_work = models.TextField(null=True, blank=True, verbose_name='Проделанная работа')
+    report_maker = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, verbose_name='Пользователь, создавший отчет')
+    
+    class Meta:
+        verbose_name_plural = 'Отчеты'
+        verbose_name = 'Отчет'
+        ordering = ['status']
+
+    def __str__(self):
+        return 'Отчет: %s' % str(self.pk)
+
+    

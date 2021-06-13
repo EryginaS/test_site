@@ -13,7 +13,8 @@
                     <h5 class="card-title">О заявке</h5>
                     <p class="card-text">Оставьте заявку, если вам нужно исправить проблему с оборудованием, сетью или
                         ПО. </p>
-                    <a class="nav-link" href="{% url 'bboard:send_form' %}">Оставить заявку</a>
+                    <button class="button" id="applicate" > Оставить заявку</button>
+                    <!-- <a class="nav-link" href="{% url 'bboard:send_form' %}">Оставить заявку</a> -->
                 </div>
             </div>
             {% else %}
@@ -31,12 +32,12 @@
         {% csrf_token %}  
         <h1>Новая заявка</h1>
         <label><b>Тема заявки</b></label>
-        <input type="text" placeholder="введите тему заявки" name="aplicate" required>
+        <input type="text" placeholder="введите тему заявки" name="theme" required>
 
-        <textarea id="story" name="story" rows="5" cols="33" placeholder="Описание проблемы."></textarea>
+        <textarea id="story" name="desc" rows="5" cols="33" placeholder="Описание проблемы."></textarea>
 
-        <label for="priority"><b>Приоритет</b></label>
-        <select class="dropdown__form"id="priority" name="priority">
+        <label style="display: none;" for="priority"><b>Приоритет</b></label>
+        <select  style="display: none;" class="dropdown__form"id="priority" name="priority">
             <option value="0">Низкий</option>
             <option value="1">Средний</option>
             <option value="2">Высокий</option>

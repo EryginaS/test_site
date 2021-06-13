@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import loader
 from django.contrib.auth import authenticate, login, logout 
 # Creat
@@ -13,15 +13,25 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from .models import Applications, Clients, ItPerson, Dept
 from django.views.generic import View, TemplateView, CreateView
-
-
+from django.views.generic.edit import ModelFormMixin
 class HomaPageTemplateView(TemplateView):
     template_name = 'bboards/home.html' 
 
    
 class ApplicationCreateView(CreateView):
     model = Applications
-    fields = ['theme', 'desc', 'priority', 'type_app']
+    fields = ['theme', 'desc', 'priority', 'type_app', 'client']
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        try:
+            client = Clients.objects.get(user=self.request.user)
+            self.object.client = client
+        except Clients.DoesNotExist:
+            pass
+        self.object.save()
+        return super(ModelFormMixin, self).form_valid(form)
+    
 
     def get_success_url(self): 
         return reverse('bboard:home')
@@ -62,4 +72,4 @@ class LogOutTemplateView(TemplateView):
 
     def get(self, request):
         logout(request)
-        return render(request, template_name)
+        return render(request, self.template_name)
