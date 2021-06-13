@@ -48,7 +48,7 @@ class ItPerson(models.Model):
         verbose_name = 'Сотрудник'
     
     def __str__(self):
-        return 'Cотрудник: %s %s' % (self.first_name, self.last_name)
+        return '%s %s' % (self.first_name, self.last_name)
 
 
 class Applications(models.Model):
