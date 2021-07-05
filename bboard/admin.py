@@ -14,6 +14,7 @@ from .forms import ReportForm
 from .helpers import doc_render_for_report
 from wsgiref.util import FileWrapper
 
+
 class ApplicationsAdmin(admin.ModelAdmin):
     list_display = ('__str__','theme', 'type_app', 'priority', 'status', 'responsible', )
     list_display_links = ('__str__',)

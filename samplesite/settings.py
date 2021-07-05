@@ -62,7 +62,7 @@ ROOT_URLCONF = 'samplesite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
@@ -73,9 +73,10 @@ TEMPLATES = [
             ],
 
         'loaders': [
+            'admin_tools.template_loaders.Loader',
             'django.template.loaders.filesystem.Loader',
             'django.template.loaders.app_directories.Loader',
-            'admin_tools.template_loaders.Loader',
+
         ],
         },
     },
